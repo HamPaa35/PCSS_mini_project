@@ -1,3 +1,3 @@
-C:/Users/mngf1/Desktop/PCSS_Mini_Project/PCSS_mini_project/Server/cmake-build-debug/CMakeFiles/Server.dir
-C:/Users/mngf1/Desktop/PCSS_Mini_Project/PCSS_mini_project/Server/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/mngf1/Desktop/PCSS_Mini_Project/PCSS_mini_project/Server/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/arthr/CLionProjects/PCSS_mini_project/Server/cmake-build-debug/CMakeFiles/Server.dir
+C:/Users/arthr/CLionProjects/PCSS_mini_project/Server/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/arthr/CLionProjects/PCSS_mini_project/Server/cmake-build-debug/CMakeFiles/rebuild_cache.dir

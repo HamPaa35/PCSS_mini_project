@@ -128,4 +128,67 @@ int main()
     {
         client[i] = { -1, INVALID_SOCKET };
     }
- 
+    while (1)
+    {
+
+        SOCKET incoming = INVALID_SOCKET;
+        incoming = accept(server_socket, NULL, NULL);
+
+        if (incoming == INVALID_SOCKET) continue;
+
+        //Reset the number of clients
+        num_clients = -1;
+
+        //Create a temporary id for the next client
+        temp_id = -1;
+        for (int i = 0; i < MAX_CLIENTS; i++)
+        {
+            if (client[i].socket == INVALID_SOCKET && temp_id == -1)
+            {
+                client[i].socket = incoming;
+                client[i].id = i;
+                temp_id = i;
+            }
+
+            if (client[i].socket != INVALID_SOCKET)
+                num_clients++;
+
+            std::cout << client[i].socket << std::endl;
+        }
+
+        if (temp_id != -1)
+        {
+            //Send the id to that client
+            std::cout << "Client #" << client[temp_id].id << " Accepted" << std::endl;
+            msg = std::to_string(client[temp_id].id);
+            send(client[temp_id].socket, msg.c_str(), strlen(msg.c_str()), 0);
+
+            //Create a thread process for that client
+            my_thread[temp_id] = std::thread(process_client, std::ref(client[temp_id]), std::ref(client), std::ref(my_thread[temp_id]));
+        }
+        else
+        {
+            msg = "Server is full";
+            send(incoming, msg.c_str(), strlen(msg.c_str()), 0);
+            std::cout << msg << std::endl;
+        }
+    } //end while
+
+
+    //Close listening socket
+    closesocket(server_socket);
+
+    //Close client socket
+    for (int i = 0; i < MAX_CLIENTS; i++)
+    {
+        my_thread[i].detach();
+        closesocket(client[i].socket);
+    }
+
+    //Clean up Winsock
+    WSACleanup();
+    std::cout << "Program has ended successfully" << std::endl;
+
+    system("pause");
+    return 0;
+}
