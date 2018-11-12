@@ -24,7 +24,7 @@ int main();
 
 int process_client(client_type &new_client)
 {
-    while (true)
+    while (1)
     {
         memset(new_client.received_message, 0, DEFAULT_BUFLEN);
 
@@ -87,7 +87,7 @@ int main()
 
         // Create a SOCKET for connecting to server
         client.socket = socket(ptr->ai_family, ptr->ai_socktype,
-            ptr->ai_protocol);
+                               ptr->ai_protocol);
         if (client.socket == INVALID_SOCKET) {
             cout << "socket() failed with error: " << WSAGetLastError() << endl;
             WSACleanup();
@@ -104,59 +104,58 @@ int main()
         }
         break;
     }
-}
 
-freeaddrinfo(result);
+    freeaddrinfo(result);
 
-if (client.socket == INVALID_SOCKET) {
-cout << "Unable to connect to server!" << endl;
-WSACleanup();
-system("pause");
-return 1;
-}
+    if (client.socket == INVALID_SOCKET) {
+        cout << "Unable to connect to server!" << endl;
+        WSACleanup();
+        system("pause");
+        return 1;
+    }
 
-cout << "Successfully Connected" << endl;
+    cout << "Successfully Connected" << endl;
 
-//Obtain id from server for this client;
-recv(client.socket, client.received_message, DEFAULT_BUFLEN, 0);
-message = client.received_message;
+    //Obtain id from server for this client;
+    recv(client.socket, client.received_message, DEFAULT_BUFLEN, 0);
+    message = client.received_message;
 
-if (message != "Server is full")
-{
-client.id = atoi(client.received_message);
+    if (message != "Server is full")
+    {
+        client.id = atoi(client.received_message);
 
-thread my_thread(process_client, client);
+        thread my_thread(process_client, client);
 
-while (1)
-{
-getline(cin, sent_message);
-iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
+        while (1)
+        {
+            getline(cin, sent_message);
+            iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
 
-if (iResult <= 0)
-{
-cout << "send() failed: " << WSAGetLastError() << endl;
-break;
-}
-}
+            if (iResult <= 0)
+            {
+                cout << "send() failed: " << WSAGetLastError() << endl;
+                break;
+            }
+        }
 
-//Shutdown the connection since no more data will be sent
-my_thread.detach();
-}
-else
-cout << client.received_message << endl;
+        //Shutdown the connection since no more data will be sent
+        my_thread.detach();
+    }
+    else
+        cout << client.received_message << endl;
 
-cout << "Shutting down socket..." << endl;
-iResult = shutdown(client.socket, SD_SEND);
-if (iResult == SOCKET_ERROR) {
-cout << "shutdown() failed with error: " << WSAGetLastError() << endl;
-closesocket(client.socket);
-WSACleanup();
-system("pause");
-return 1;
-}
+    cout << "Shutting down socket..." << endl;
+    iResult = shutdown(client.socket, SD_SEND);
+    if (iResult == SOCKET_ERROR) {
+        cout << "shutdown() failed with error: " << WSAGetLastError() << endl;
+        closesocket(client.socket);
+        WSACleanup();
+        system("pause");
+        return 1;
+    }
 
-closesocket(client.socket);
-WSACleanup();
-system("pause");
-return 0;
+    closesocket(client.socket);
+    WSACleanup();
+    system("pause");
+    return 0;
 }
