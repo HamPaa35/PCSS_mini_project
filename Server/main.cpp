@@ -79,3 +79,53 @@ int process_client(client_type &new_client, std::vector<client_type> &client_arr
  
     return 0;
 }
+
+int main()
+{
+    WSADATA wsaData;
+    struct addrinfo hints;
+    struct addrinfo *server = NULL;
+    SOCKET server_socket = INVALID_SOCKET;
+    std::string msg = "";
+    std::vector<client_type> client(MAX_CLIENTS);
+    int num_clients = 0;
+    int temp_id = -1;
+    std::thread my_thread[MAX_CLIENTS];
+
+    //Initialize Winsock
+    std::cout << "Intializing Winsock..." << std::endl;
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
+
+    //Setup hints
+    ZeroMemory(&hints, sizeof(hints));
+    hints.ai_family = AF_INET;
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_protocol = IPPROTO_TCP;
+    hints.ai_flags = AI_PASSIVE;
+
+    //Setup Server
+    std::cout << "Setting up server..." << std::endl;
+    getaddrinfo(static_cast<LPCTSTR>(IP_ADDRESS), DEFAULT_PORT, &hints, &server);
+
+    //Create a listening socket for connecting to server
+    std::cout << "Creating server socket..." << std::endl;
+    server_socket = socket(server->ai_family, server->ai_socktype, server->ai_protocol);
+
+    //Setup socket options
+    setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &OPTION_VALUE, sizeof(int)); //Make it possible to re-bind to a port that was used within the last 2 minutes
+    setsockopt(server_socket, IPPROTO_TCP, TCP_NODELAY, &OPTION_VALUE, sizeof(int)); //Used for interactive programs
+
+    //Assign an address to the server socket.
+    std::cout << "Binding socket..." << std::endl;
+    bind(server_socket, server->ai_addr, (int)server->ai_addrlen);
+
+    //Listen for incoming connections.
+    std::cout << "Listening..." << std::endl;
+    listen(server_socket, SOMAXCONN);
+
+    //Initialize the client list
+    for (int i = 0; i < MAX_CLIENTS; i++)
+    {
+        client[i] = { -1, INVALID_SOCKET };
+    }
+ 
