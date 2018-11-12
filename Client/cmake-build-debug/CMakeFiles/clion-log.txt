@@ -1,6 +1,6 @@
-"C:\Program Files\JetBrains\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client
--- The C compiler identification is MSVC 19.15.26730.0
--- The CXX compiler identification is MSVC 19.15.26730.0
+"C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client
+-- The C compiler identification is MSVC 19.15.26726.0
+-- The CXX compiler identification is MSVC 19.15.26726.0
 -- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.15.26726/bin/Hostx86/x86/cl.exe
 -- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Tools/MSVC/14.15.26726/bin/Hostx86/x86/cl.exe -- works
 -- Detecting C compiler ABI info
@@ -15,4 +15,4 @@
 -- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: C:/Users/Bruger/CLionProjects/PCSS_mini_project/Client/cmake-build-debug
+-- Build files have been written to: C:/Users/mngf1/Desktop/PCSS_Mini_Project/PCSS_mini_project/Client/cmake-build-debug
