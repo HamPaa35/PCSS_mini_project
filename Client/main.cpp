@@ -24,7 +24,7 @@ int main();
 
 int process_client(client_type &new_client)
 {
-    while (1)
+    while (true)
     {
         memset(new_client.received_message, 0, DEFAULT_BUFLEN);
 
@@ -52,7 +52,7 @@ int main()
 {
     WSAData wsa_data;
     struct addrinfo *result = NULL, *ptr = NULL, hints;
-    string sent_message = "";
+    string sent_message;
     client_type client = { INVALID_SOCKET, -1, "" };
     int iResult = 0;
     string message;
@@ -126,7 +126,7 @@ int main()
 
         thread my_thread(process_client, client);
 
-        while (1)
+        while (true)
         {
             getline(cin, sent_message);
             iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
