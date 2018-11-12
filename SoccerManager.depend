@@ -120,3 +120,63 @@
 	<iostream>
 	"Team.h"
 
+1542014761 source:c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\coach.cpp
+	"Coach.h"
+
+1542014761 c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\coach.h
+	"Person.h"
+
+1542014761 c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\person.h
+	<string>
+
+1542014761 source:c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\friendlysoccermatch.cpp
+	<iostream>
+	<fstream>
+	<sstream>
+	<stdlib.h>
+	"FriendlySoccerMatch.h"
+
+1542014761 c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\friendlysoccermatch.h
+	"FriendlyMatch.h"
+	"Team.h"
+
+1542014761 c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\friendlymatch.h
+
+1542014761 c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\team.h
+	"Coach.h"
+	"Keeper.h"
+	"Player.h"
+
+1542014761 c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\keeper.h
+	"Player.h"
+
+1542014761 c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\player.h
+	"Person.h"
+
+1542014761 source:c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\keeper.cpp
+	<stdlib.h>
+	"Keeper.h"
+
+1542014761 source:c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\main.cpp
+	<iostream>
+	<string>
+	<stdlib.h>
+	<time.h>
+	"FriendlySoccerMatch.h"
+	"Person.h"
+	"Coach.h"
+	"Player.h"
+	"Keeper.h"
+	"Team.h"
+
+1542014761 source:c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\person.cpp
+	"Person.h"
+
+1542014761 source:c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\player.cpp
+	<stdlib.h>
+	"Player.h"
+
+1542014761 source:c:\users\mngf1\desktop\pcss_mini_project\pcss_mini_project\team.cpp
+	<iostream>
+	"Team.h"
+
