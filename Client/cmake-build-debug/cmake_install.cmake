@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Bruger/CLionProjects/PCSS_mini_project/Client
+# Install script for directory: C:/Users/mngf1/Desktop/PCSS_Mini_Project/PCSS_mini_project/Client
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Bruger/CLionProjects/PCSS_mini_project/Client/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/mngf1/Desktop/PCSS_Mini_Project/PCSS_mini_project/Client/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

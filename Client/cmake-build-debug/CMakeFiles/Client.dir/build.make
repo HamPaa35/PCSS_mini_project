@@ -35,19 +35,19 @@ NULL=nul
 SHELL = cmd.exe
 
 # The CMake executable.
-CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe"
+CMAKE_COMMAND = "C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe"
 
 # The command to remove a file.
-RM = "C:\Program Files\JetBrains\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe" -E remove -f
+RM = "C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client
+CMAKE_SOURCE_DIR = C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles\Client.dir\depend.make
@@ -60,21 +60,21 @@ include CMakeFiles\Client.dir\flags.make
 
 CMakeFiles\Client.dir\main.cpp.obj: CMakeFiles\Client.dir\flags.make
 CMakeFiles\Client.dir\main.cpp.obj: ..\main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Client.dir/main.cpp.obj"
-	C:\PROGRA~2\MICROS~3\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\Client.dir\main.cpp.obj /FdCMakeFiles\Client.dir\ /FS -c C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Client.dir/main.cpp.obj"
+	C:\PROGRA~2\MICROS~4\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\Client.dir\main.cpp.obj /FdCMakeFiles\Client.dir\ /FS -c C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\main.cpp
 <<
 
 CMakeFiles\Client.dir\main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Client.dir/main.cpp.i"
-	C:\PROGRA~2\MICROS~3\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\cl.exe > CMakeFiles\Client.dir\main.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\main.cpp
+	C:\PROGRA~2\MICROS~4\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\cl.exe > CMakeFiles\Client.dir\main.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\main.cpp
 <<
 
 CMakeFiles\Client.dir\main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Client.dir/main.cpp.s"
-	C:\PROGRA~2\MICROS~3\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Client.dir\main.cpp.s /c C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\main.cpp
+	C:\PROGRA~2\MICROS~4\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\Client.dir\main.cpp.s /c C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\main.cpp
 <<
 
 # Object files for target Client
@@ -87,9 +87,9 @@ Client_EXTERNAL_OBJECTS =
 Client.exe: CMakeFiles\Client.dir\main.cpp.obj
 Client.exe: CMakeFiles\Client.dir\build.make
 Client.exe: CMakeFiles\Client.dir\objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Client.exe"
-	"C:\Program Files\JetBrains\CLion 2018.2.4\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\Client.dir --manifests  -- C:\PROGRA~2\MICROS~3\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\Client.dir\objects1.rsp @<<
- /out:Client.exe /implib:Client.lib /pdb:C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\cmake-build-debug\Client.pdb /version:0.0  /machine:X86 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable Client.exe"
+	"C:\Program Files\JetBrains\CLion 2018.2.2\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\Client.dir --manifests  -- C:\PROGRA~2\MICROS~4\2017\COMMUN~1\VC\Tools\MSVC\1415~1.267\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\Client.dir\objects1.rsp @<<
+ /out:Client.exe /implib:Client.lib /pdb:C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\cmake-build-debug\Client.pdb /version:0.0  /machine:X86 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<
 
 # Rule to build all files generated by this target.
@@ -102,6 +102,6 @@ CMakeFiles\Client.dir\clean:
 .PHONY : CMakeFiles\Client.dir\clean
 
 CMakeFiles\Client.dir\depend:
-	$(CMAKE_COMMAND) -E cmake_depends "NMake Makefiles" C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\cmake-build-debug C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\cmake-build-debug C:\Users\Bruger\CLionProjects\PCSS_mini_project\Client\cmake-build-debug\CMakeFiles\Client.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "NMake Makefiles" C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\cmake-build-debug C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\cmake-build-debug C:\Users\mngf1\Desktop\PCSS_Mini_Project\PCSS_mini_project\Client\cmake-build-debug\CMakeFiles\Client.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles\Client.dir\depend
 

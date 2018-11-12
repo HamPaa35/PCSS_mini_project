@@ -7,7 +7,7 @@
  
 #pragma comment (lib, "Ws2_32.lib")
  
-#define IP_ADDRESS "192.168.56.1"
+#define IP_ADDRESS "172.24.220.140"
 #define DEFAULT_PORT "3504"
 #define DEFAULT_BUFLEN 512
  
