@@ -7,18 +7,21 @@
  
 #pragma comment (lib, "Ws2_32.lib")
  
-#define IP_ADDRESS "172.24.220.140"
+#define IP_ADDRESS "192.168.43.207"
 #define DEFAULT_PORT "3504"
 #define DEFAULT_BUFLEN 512
  
 struct client_type
 {
     int id;
+    std::string name;
+    bool nameState = false;
     SOCKET socket;
 };
- 
+
+
 const char OPTION_VALUE = 1;
-const int MAX_CLIENTS = 5;
+const int MAX_CLIENTS = 10;
  
 //Function Prototypes
 int process_client(client_type &new_client, std::vector<client_type> &client_array, std::thread &thread);
@@ -28,20 +31,28 @@ int process_client(client_type &new_client, std::vector<client_type> &client_arr
 {
     std::string msg = "";
     char tempmsg[DEFAULT_BUFLEN] = "";
+    std::string clientName;
  
     //Session
     while (1)
     {
         memset(tempmsg, 0, DEFAULT_BUFLEN);
- 
-        if (new_client.socket != 0)
+
+        if(new_client.socket != 0 && !new_client.nameState){
+            int iResult = recv(new_client.socket, tempmsg, DEFAULT_BUFLEN, 0);
+            new_client.name = tempmsg;
+            clientName = tempmsg;
+            new_client.nameState = true;
+        }
+
+        else if (new_client.socket != 0 && new_client.nameState)
         {
             int iResult = recv(new_client.socket, tempmsg, DEFAULT_BUFLEN, 0);
  
             if (iResult != SOCKET_ERROR)
             {
                 if (strcmp("", tempmsg))
-                    msg = "Client #" + std::to_string(new_client.id) + ": " + tempmsg;
+                    msg = new_client.name + ": " + tempmsg;
  
                 std::cout << msg.c_str() << std::endl;
  
@@ -55,7 +66,7 @@ int process_client(client_type &new_client, std::vector<client_type> &client_arr
             }
             else
             {
-                msg = "Client #" + std::to_string(new_client.id) + " Disconnected";
+                msg = clientName + " has Disconnected";
  
                 std::cout << msg << std::endl;
  
@@ -105,7 +116,7 @@ int main()
 
     //Setup Server
     std::cout << "Setting up server..." << std::endl;
-    getaddrinfo(static_cast<LPCTSTR>(IP_ADDRESS), DEFAULT_PORT, &hints, &server);
+    getaddrinfo(NULL, DEFAULT_PORT, &hints, &server);
 
     //Create a listening socket for connecting to server
     std::cout << "Creating server socket..." << std::endl;
@@ -122,11 +133,10 @@ int main()
     //Listen for incoming connections.
     std::cout << "Listening..." << std::endl;
     listen(server_socket, SOMAXCONN);
-
     //Initialize the client list
     for (int i = 0; i < MAX_CLIENTS; i++)
     {
-        client[i] = { -1, INVALID_SOCKET };
+        client[i] = { -1, client[i].name, false, INVALID_SOCKET };
     }
     while (1)
     {
@@ -159,7 +169,7 @@ int main()
         if (temp_id != -1)
         {
             //Send the id to that client
-            std::cout << "Client #" << client[temp_id].id << " Accepted" << std::endl;
+            std::cout <<"New person has joined the chat" << std::endl;
             msg = std::to_string(client[temp_id].id);
             send(client[temp_id].socket, msg.c_str(), strlen(msg.c_str()), 0);
 
@@ -191,5 +201,4 @@ int main()
 
     system("pause");
     return 0;
-    //dhtdtydtjyydttyr
 }
