@@ -25,6 +25,7 @@ int process_client(client_type &new_client) {
     while (true) {
         memset(new_client.received_message, 0, DEFAULT_BUFLEN);
 
+        // Receives and couts incoming messages. Also couts an error message if needed.
         if (new_client.socket != 0) {
             int iResult = recv(new_client.socket, new_client.received_message, DEFAULT_BUFLEN, 0);
 
