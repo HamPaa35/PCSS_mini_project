@@ -130,7 +130,7 @@ int main() {
                 while (characterLimitLoop){
                     cout << "Type your desired username: (max 10 characters)" << endl;
                     getline(cin, sent_message);
-                    if (sent_message.length() < 11) {
+                    if (sent_message.length() < 21) {
                         iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
                         userNameCheck = false;
                         characterLimitLoop = false;
@@ -146,7 +146,7 @@ int main() {
                 bool characterLimitLoop = true;
                 while (characterLimitLoop) {
                     getline(cin, sent_message);
-                    if (sent_message.length() < 20) {
+                    if (sent_message.length() < 140) {
                         iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
                         characterLimitLoop = false;
                         if (iResult <= 0) {
