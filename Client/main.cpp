@@ -53,7 +53,7 @@ int main() {
     string message;
 
     cout << "Starting Client...\n";
-    cout << "Write the IP adddress you want to connect to:\n";
+    cout << "Write the IP address you want to connect to:\n";
     getline(cin, temp_IP);
     LPCTSTR IP_ADDRESS = temp_IP.c_str();
 
@@ -127,7 +127,7 @@ int main() {
         bool userNameCheck = true;
         while (true) {
             if (userNameCheck) {
-                cout << "Type your desired username" << endl;
+                cout << "Type your desired username:" << endl;
                 getline(cin, sent_message);
                 iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
                 userNameCheck = false;
