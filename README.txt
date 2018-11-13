@@ -10,6 +10,7 @@ Mathas N. G. Faldt
 Rasmus Lund Jørgensen
 
 // How to use:
+- Download the executables (server and client) from gitHub
 - Run the server
 - Run the client
 - Input the IPv4 of the computer running the server in the client
