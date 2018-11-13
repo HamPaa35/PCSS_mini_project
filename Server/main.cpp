@@ -6,11 +6,12 @@
 #include <vector>
  
 #pragma comment (lib, "Ws2_32.lib")
- 
-#define IP_ADDRESS "192.168.43.207"
+
+//Defining the port number and the buffer for the message length
 #define DEFAULT_PORT "3504"
 #define DEFAULT_BUFLEN 512
- 
+
+//A custom type to store the information of the client in
 struct client_type
 {
     int id;
@@ -23,21 +24,25 @@ struct client_type
 const char OPTION_VALUE = 1;
 const int MAX_CLIENTS = 10;
  
-//Function Prototypes
+//Function decelerations for the program
 int process_client(client_type &new_client, std::vector<client_type> &client_array, std::thread &thread);
 int main();
- 
+
 int process_client(client_type &new_client, std::vector<client_type> &client_array, std::thread &thread)
 {
+    //temp variables for the code, to allocate memory
     std::string msg = "";
     char tempmsg[DEFAULT_BUFLEN] = "";
+    //Variable to remember the client name, even when they have disconnected
     std::string clientName;
  
-    //Session
+    //The loop for the chat session
     while (1)
     {
+        //allocates memory for the tmp variables
         memset(tempmsg, 0, DEFAULT_BUFLEN);
 
+        //Checks if the client has a name, and if not, sets their first message to be their name
         if(new_client.socket != 0 && !new_client.nameState){
             int iResult = recv(new_client.socket, tempmsg, DEFAULT_BUFLEN, 0);
             new_client.name = tempmsg;
@@ -45,10 +50,13 @@ int process_client(client_type &new_client, std::vector<client_type> &client_arr
             new_client.nameState = true;
         }
 
+        //The code for receiving normal messages, if the client has a name and a socket
         else if (new_client.socket != 0 && new_client.nameState)
         {
+            //Receives the clients chat message
             int iResult = recv(new_client.socket, tempmsg, DEFAULT_BUFLEN, 0);
- 
+
+            //Checks if the message is valid
             if (iResult != SOCKET_ERROR)
             {
                 if (strcmp("", tempmsg))
@@ -56,7 +64,7 @@ int process_client(client_type &new_client, std::vector<client_type> &client_arr
  
                 std::cout << msg.c_str() << std::endl;
  
-                //Broadcast that message to the other clients
+                //Broadcast the message to all other clients
                 for (int i = 0; i < MAX_CLIENTS; i++)
                 {
                     if (client_array[i].socket != INVALID_SOCKET)
@@ -64,6 +72,8 @@ int process_client(client_type &new_client, std::vector<client_type> &client_arr
                             iResult = send(client_array[i].socket, msg.c_str(), strlen(msg.c_str()), 0);
                 }
             }
+
+            //If there is a socket error, the client will be disconnected, and the socket will be closed
             else
             {
                 msg = clientName + " has Disconnected";
@@ -86,6 +96,7 @@ int process_client(client_type &new_client, std::vector<client_type> &client_arr
         }
     } //end while
  
+    //The thread of the client is disconnected to free up threads
     thread.detach();
  
     return 0;
@@ -144,6 +155,7 @@ int main()
         SOCKET incoming = INVALID_SOCKET;
         incoming = accept(server_socket, NULL, NULL);
 
+        //If there is no valid socket, the loop wil be exited
         if (incoming == INVALID_SOCKET) continue;
 
         //Reset the number of clients
