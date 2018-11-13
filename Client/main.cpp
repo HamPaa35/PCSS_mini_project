@@ -9,7 +9,6 @@ using namespace std;
 #pragma comment (lib, "Ws2_32.lib")
 
 #define DEFAULT_BUFLEN 512
-#define IP_ADDRESS "172.24.220.140"
 #define DEFAULT_PORT "3504"
 
 struct client_type
@@ -22,42 +21,41 @@ struct client_type
 int process_client(client_type &new_client);
 int main();
 
-int process_client(client_type &new_client)
-{
-    while (true)
-    {
+int process_client(client_type &new_client) {
+    while (true) {
         memset(new_client.received_message, 0, DEFAULT_BUFLEN);
 
-        if (new_client.socket != 0)
-        {
+        if (new_client.socket != 0) {
             int iResult = recv(new_client.socket, new_client.received_message, DEFAULT_BUFLEN, 0);
 
-            if (iResult != SOCKET_ERROR)
+            if (iResult != SOCKET_ERROR) {
                 cout << new_client.received_message << endl;
-            else
-            {
+            } else {
                 cout << "recv() failed: " << WSAGetLastError() << endl;
                 break;
             }
         }
     }
 
-    if (WSAGetLastError() == WSAECONNRESET)
+    if (WSAGetLastError() == WSAECONNRESET) {
         cout << "The server has disconnected" << endl;
-
+    }
     return 0;
 }
 
-int main()
-{
+int main() {
     WSAData wsa_data;
     struct addrinfo *result = NULL, *ptr = NULL, hints;
     string sent_message;
-    client_type client = { INVALID_SOCKET, -1, "" };
+    string temp_IP;
+    client_type client = {INVALID_SOCKET, -1, ""};
     int iResult = 0;
     string message;
 
     cout << "Starting Client...\n";
+    cout << "Write the IP adddress you want to connect to:\n";
+    getline(cin, temp_IP);
+    LPCTSTR IP_ADDRESS = temp_IP.c_str();
 
     // Initialize Winsock
     iResult = WSAStartup(MAKEWORD(2, 2), &wsa_data);
@@ -74,7 +72,8 @@ int main()
     cout << "Connecting...\n";
 
     // Resolve the server address and port
-    iResult = getaddrinfo(static_cast<LPCTSTR>(IP_ADDRESS), DEFAULT_PORT, &hints, &result);
+    // getaddrinfo(static_cast<LPCTSTR>(IP_ADDRESS)
+    iResult = getaddrinfo(IP_ADDRESS, DEFAULT_PORT, &hints, &result);
     if (iResult != 0) {
         cout << "getaddrinfo() failed with error: " << iResult << endl;
         WSACleanup();
@@ -96,7 +95,7 @@ int main()
         }
 
         // Connect to server.
-        iResult = connect(client.socket, ptr->ai_addr, (int)ptr->ai_addrlen);
+        iResult = connect(client.socket, ptr->ai_addr, (int) ptr->ai_addrlen);
         if (iResult == SOCKET_ERROR) {
             closesocket(client.socket);
             client.socket = INVALID_SOCKET;
@@ -120,29 +119,38 @@ int main()
     recv(client.socket, client.received_message, DEFAULT_BUFLEN, 0);
     message = client.received_message;
 
-    if (message != "Server is full")
-    {
+    if (message != "Server is full") {
         client.id = atoi(client.received_message);
 
         thread my_thread(process_client, client);
 
-        while (true)
-        {
-            getline(cin, sent_message);
-            iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
+        bool userNameCheck = true;
+        while (true) {
+            if (userNameCheck) {
+                cout << "Type your desired username" << endl;
+                getline(cin, sent_message);
+                iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
+                userNameCheck = false;
+                if (iResult <= 0) {
+                    cout << "send() failed: " << WSAGetLastError() << endl;
+                    break;
+                }
+            } else {
+                getline(cin, sent_message);
+                iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
 
-            if (iResult <= 0)
-            {
-                cout << "send() failed: " << WSAGetLastError() << endl;
-                break;
+                if (iResult <= 0) {
+                    cout << "send() failed: " << WSAGetLastError() << endl;
+                    break;
+                }
             }
         }
 
         //Shutdown the connection since no more data will be sent
         my_thread.detach();
+    } else {
+    cout << client.received_message << endl;
     }
-    else
-        cout << client.received_message << endl;
 
     cout << "Shutting down socket..." << endl;
     iResult = shutdown(client.socket, SD_SEND);
