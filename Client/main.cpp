@@ -52,6 +52,7 @@ int main() {
     int iResult = 0;
     string message;
 
+    // Ask the user to input the IP address they want to connect to.
     cout << "Starting Client...\n";
     cout << "Write the IP address you want to connect to:\n";
     getline(cin, temp_IP);
@@ -83,9 +84,8 @@ int main() {
     // Attempt to connect to an address until one succeeds
     for (ptr = result; ptr != NULL; ptr = ptr->ai_next) {
 
-        // Create a SOCKET for connecting to server
-        client.socket = socket(ptr->ai_family, ptr->ai_socktype,
-                               ptr->ai_protocol);
+        // Create a SOCKET for connecting to a server and cout an error message in error.
+        client.socket = socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
         if (client.socket == INVALID_SOCKET) {
             cout << "socket() failed with error: " << WSAGetLastError() << endl;
             WSACleanup();
@@ -105,6 +105,7 @@ int main() {
 
     freeaddrinfo(result);
 
+    // Tell the user that the server could not be reached and then exit the program.
     if (client.socket == INVALID_SOCKET) {
         cout << "Unable to connect to server!" << endl;
         WSACleanup();
@@ -118,30 +119,36 @@ int main() {
     recv(client.socket, client.received_message, DEFAULT_BUFLEN, 0);
     message = client.received_message;
 
+    // If statement that checks if the server is full.
     if (message != "Server is full") {
         client.id = atoi(client.received_message);
 
         thread my_thread(process_client, client);
 
+        // Loop that allows the user to send messages.
         bool userNameCheck = true;
         while (true) {
+            // If statement that checks if a username has been given.
             if (userNameCheck) {
+                // Loop that keeps asking for a username until a valid one has been provided.
                 bool characterLimitLoop = true;
                 while (characterLimitLoop){
-                    cout << "Type your desired username: (max 10 characters)" << endl;
+                    cout << "Type your desired username: (max 20 characters)" << endl;
                     getline(cin, sent_message);
                     if (sent_message.length() < 21) {
                         iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
                         userNameCheck = false;
                         characterLimitLoop = false;
-                        if (iResult <= 0) {
-                            cout << "send() failed: " << WSAGetLastError() << endl;
-                            break;
-                        }
                     } else {
                         cout << "Desired username is too long." << endl;
                     }
                 }
+                if (iResult <= 0) {
+                    cout << "send() failed: " << WSAGetLastError() << endl;
+                    break;
+                }
+
+            // Else statement that runs the chat messages after a username has ben given.
             } else {
                 bool characterLimitLoop = true;
                 while (characterLimitLoop) {
@@ -149,23 +156,26 @@ int main() {
                     if (sent_message.length() < 140) {
                         iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
                         characterLimitLoop = false;
-                        if (iResult <= 0) {
-                            cout << "send() failed: " << WSAGetLastError() << endl;
-                            break;
-                        }
                     } else {
                         cout << "Message is too long." << endl;
                     }
+                }
+                if (iResult <= 0) {
+                    cout << "send() failed: " << WSAGetLastError() << endl;
+                    break;
                 }
             }
         }
 
         //Shutdown the connection since no more data will be sent
         my_thread.detach();
+
+    // If the server is full this code runs.
     } else {
-    cout << client.received_message << endl;
+        cout << client.received_message << endl;
     }
 
+    // Shuts down the socket and couts an error message if an error occurs.
     cout << "Shutting down socket..." << endl;
     iResult = shutdown(client.socket, SD_SEND);
     if (iResult == SOCKET_ERROR) {
