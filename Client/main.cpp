@@ -72,7 +72,6 @@ int main() {
     cout << "Connecting...\n";
 
     // Resolve the server address and port
-    // getaddrinfo(static_cast<LPCTSTR>(IP_ADDRESS)
     iResult = getaddrinfo(IP_ADDRESS, DEFAULT_PORT, &hints, &result);
     if (iResult != 0) {
         cout << "getaddrinfo() failed with error: " << iResult << endl;
@@ -127,21 +126,36 @@ int main() {
         bool userNameCheck = true;
         while (true) {
             if (userNameCheck) {
-                cout << "Type your desired username:" << endl;
-                getline(cin, sent_message);
-                iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
-                userNameCheck = false;
-                if (iResult <= 0) {
-                    cout << "send() failed: " << WSAGetLastError() << endl;
-                    break;
+                bool characterLimitLoop = true;
+                while (characterLimitLoop){
+                    cout << "Type your desired username: (max 10 characters)" << endl;
+                    getline(cin, sent_message);
+                    if (sent_message.length() < 11) {
+                        iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
+                        userNameCheck = false;
+                        characterLimitLoop = false;
+                        if (iResult <= 0) {
+                            cout << "send() failed: " << WSAGetLastError() << endl;
+                            break;
+                        }
+                    } else {
+                        cout << "Desired username is too long." << endl;
+                    }
                 }
             } else {
-                getline(cin, sent_message);
-                iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
-
-                if (iResult <= 0) {
-                    cout << "send() failed: " << WSAGetLastError() << endl;
-                    break;
+                bool characterLimitLoop = true;
+                while (characterLimitLoop) {
+                    getline(cin, sent_message);
+                    if (sent_message.length() < 20) {
+                        iResult = send(client.socket, sent_message.c_str(), strlen(sent_message.c_str()), 0);
+                        characterLimitLoop = false;
+                        if (iResult <= 0) {
+                            cout << "send() failed: " << WSAGetLastError() << endl;
+                            break;
+                        }
+                    } else {
+                        cout << "Message is too long." << endl;
+                    }
                 }
             }
         }
